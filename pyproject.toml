@@ -1,15 +1,10 @@
 [build-system]
-requires = [
-    "hatchling",
-    "hatch-fancy-pypi-readme",
-]
+requires = ["hatchling", "hatch-fancy-pypi-readme"]
 build-backend = "hatchling.build"
 
 [project]
 name = "httpcore"
-dynamic = [
-    "readme",
-]
+dynamic = ["readme", "version"]
 description = "A minimal low-level HTTP client."
 license = "BSD-3-Clause"
 requires-python = ">=3.8"
@@ -35,12 +30,8 @@ classifiers = [
 dependencies = [
     "anyio>=3.0,<5.0",
     "certifi",
-    "h11>=0.13,<0.15",
+    "h11>=0.16.0",
     "sniffio==1.*",
-]
-version = "0.18.0+lineaje.1"
-maintainers = [
-    { name = "Lineaje DepFixer", email = "221268890+Lineaje-DepFixer@users.noreply.github.com" },
 ]
 
 [project.optional-dependencies]
@@ -53,10 +44,8 @@ socks = [
 
 [project.urls]
 Documentation = "https://www.encode.io/httpcore"
-Homepage = "https://github.com/lineaje-labs-gos/encode-httpcore"
+Homepage = "https://www.encode.io/httpcore/"
 Source = "https://github.com/encode/httpcore"
-Repository = "https://github.com/lineaje-labs-gos/encode-httpcore"
-Tracker = "https://github.com/lineaje-labs-gos/encode-httpcore/issues"
 
 [tool.hatch.version]
 path = "httpcore/__init__.py"
@@ -70,42 +59,41 @@ include = [
 
 [tool.hatch.metadata.hooks.fancy-pypi-readme]
 content-type = "text/markdown"
-fragments = [
-    { path = "README.md" },
-    { path = "CHANGELOG.md" },
-]
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
+path = "README.md"
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
+path = "CHANGELOG.md"
 
 [tool.mypy]
 strict = true
 show_error_codes = true
-overrides = [
-    { module = "tests.*", disallow_untyped_defs = false, check_untyped_defs = true },
-    { module = "h2.*", ignore_missing_imports = true },
-    { module = "hpack.*", ignore_missing_imports = true },
-]
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+check_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = "h2.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "hpack.*"
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
-addopts = [
-    "-rxXs",
-    "--strict-config",
-    "--strict-markers",
-]
-markers = [
-    "copied_from(source, changes=None): mark test as copied from somewhere else, along with a description of changes made to accodomate e.g. our test setup",
-]
-filterwarnings = [
-    "error",
-]
+addopts = ["-rxXs", "--strict-config", "--strict-markers"]
+markers = ["copied_from(source, changes=None): mark test as copied from somewhere else, along with a description of changes made to accodomate e.g. our test setup"]
+filterwarnings = ["error"]
 
 [tool.coverage.run]
 omit = [
-    "venv/*",
-    "httpcore/_sync/*",
+    "venv/*", 
+    "httpcore/_sync/*"
 ]
-include = [
-    "httpcore/*",
-    "tests/*",
-]
+include = ["httpcore/*", "tests/*"]
 
 [tool.ruff]
 exclude = [
@@ -117,7 +105,7 @@ select = [
     "E",
     "F",
     "W",
-    "I",
+    "I"
 ]
 
 [tool.ruff.isort]
